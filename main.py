@@ -7,7 +7,7 @@ from cmd_line_param import PARSER
 from conf_parser import USER_PARAMS, CurrentHostParams
 
 SERVICE_PLACEMENT = {
-    "master": ["etcd", "kube-apiserver", "kubectl", "kube-controller-manager", "kube-scheduler", "calico", "kubedns"],
+    "master": ["etcd", "kube-apiserver", "kubectl", "kube-controller-manager", "kube-scheduler", "calico", "kubedns", "heapster"],
     "node": ["kubectl", "docker", "kubelet", "kube-proxy"]
 }
 
