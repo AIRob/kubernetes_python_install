@@ -1,0 +1,29 @@
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kubelet \
+  --api-servers=http://${MASTER_IP}:8080 \
+  --address=0.0.0.0  \
+  --hostname-override=${CURRENT_HOSTNAME} \
+  --log-dir=/var/log/kubelet \
+  --logtostderr=true \
+  --pod-infra-container-image=registry.access.redhat.com/rhel7/pod-infrastructure:latest \
+  --allow-privileged=true \
+  --cni-bin-dir=/opt/cni/bin \
+  --cni-conf-dir=/etc/cni/net.d \
+  --network-plugin=cni \
+  --network-plugin-dir=/etc/cni/net.d \
+  --cluster_dns=${CLUSTER_DNS_IP} \
+  --cluster_domain=${CLUSTER_DOMAIN_NAME} \
+  --v=0
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

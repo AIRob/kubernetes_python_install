@@ -1,0 +1,25 @@
+[Unit]
+Description=Kube-apiserver Service
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/kube-apiserver \
+  --admission-control=NamespaceLifecycle,NamespaceExists,SecurityContextDeny,LimitRanger,ResourceQuota \
+  --etcd-servers=http://127.0.0.1:2379 \
+  --insecure-bind-address=0.0.0.0 \
+  --port=8080 \
+  --log-dir=/var/log/kubernetes/kube-apiserver \
+  --logtostderr=true \
+  --service-cluster-ip-range=${SERVICE_CLUSTER_CIDR} \
+  --allow-privileged=true \
+  --runtime-config=extensions/v1beta1/networkpolicies=true \
+  --v=0
+
+Restart=on-failure
+RestartSec=5
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

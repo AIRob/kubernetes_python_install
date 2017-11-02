@@ -1,0 +1,16 @@
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+ExecStart=/usr/bin/kube-controller-manager \
+  --logtostderr=true \
+  --log-dir=/var/log/kubernetes/kube-controller-manager \
+  --master=http://127.0.0.1:8080 \
+  --v=0
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

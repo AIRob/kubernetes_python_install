@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kube-dns-v9
+  namespace: default
+  labels:
+    k8s-app: kube-dns
+    version: v9
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 1
+  selector:
+    k8s-app: kube-dns
+    version: v9
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-dns
+        version: v9
+        kubernetes.io/cluster-service: "true"
+    spec:
+      containers:
+      - name: etcd
+        image: registry.cn-hangzhou.aliyuncs.com/google-containers/etcd-amd64:3.0.17
+        imagePullPolicy: IfNotPresent
+        command:
+        - /usr/local/bin/etcd
+        - -data-dir
+        - /home/data/etcd
+        - -listen-client-urls
+        - http://127.0.0.1:2379,http://127.0.0.1:4001
+        - -advertise-client-urls
+        - http://127.0.0.1:2379,http://127.0.0.1:4001
+        - -initial-cluster-token
+        - skydns-etcd
+      - name: kube2sky
+        image: registry.cn-hangzhou.aliyuncs.com/google-containers/kube2sky:1.14
+        imagePullPolicy: IfNotPresent
+        args:
+        - "--etcd-server=http://127.0.0.1:2379"
+        - "--kube-master-url=${KUBE_APISERVER_ENDPOINT}"
+        - "--domain=cluster.local"
+      - name: skydns
+        image: registry.cn-hangzhou.aliyuncs.com/google-containers/skydns:2015-10-13-8c72f8c
+        imagePullPolicy: IfNotPresent
+        args:
+        - "-machines=http://127.0.0.1:2379"
+        - "-addr=0.0.0.0:53"
+        - "-domain=cluster.local"
+        ports:
+        - containerPort: 53
+          name: dns
+          protocol: UDP
+        - containerPort: 53
+          name: dns-tcp
+          protocol: TCP
+      dnsPolicy: Default  # Don't use cluster DNS.
