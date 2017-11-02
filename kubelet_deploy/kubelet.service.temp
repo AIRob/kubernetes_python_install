@@ -7,7 +7,7 @@ Requires=docker.service
 [Service]
 Type=simple
 ExecStart=/usr/bin/kubelet \
-  --api-servers=http://${MASTER_IP}:8080 \
+  --api-servers=http://${CONTROLLER_IP}:8080 \
   --address=0.0.0.0  \
   --hostname-override=${CURRENT_HOSTNAME} \
   --log-dir=/var/log/kubelet \

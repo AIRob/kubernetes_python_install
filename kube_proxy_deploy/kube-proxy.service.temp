@@ -8,7 +8,7 @@ WorkingDirectory=/var/lib/kube-proxy
 ExecStart=/usr/bin/kube-proxy \
   --log-dir=/var/log/kube-proxy \
   --logtostderr=true \
-  --master=http://${MASTER_IP}:8080 \
+  --master=http://${CONTROLLER_IP}:8080 \
   --v=0 \
 
 Restart=on-failure

@@ -38,7 +38,7 @@ spec:
         imagePullPolicy: IfNotPresent
         args:
         - "--etcd-server=http://127.0.0.1:2379"
-        - "--kube-master-url=${KUBE_APISERVER_ENDPOINT}"
+        - "--kube-master-url=http://${CONTROLLER_IP}:8080"
         - "--domain=cluster.local"
       - name: skydns
         image: registry.cn-hangzhou.aliyuncs.com/google-containers/skydns:2015-10-13-8c72f8c

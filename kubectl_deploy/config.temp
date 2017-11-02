@@ -1,0 +1,14 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: "http://${CONTROLLER_IP}:8080"
+  name: ${CLUSTER_NAME}
+contexts:
+- context:
+    cluster: ${CLUSTER_NAME}
+    user: ""
+  name: ${CLUSTER_NAME}
+current-context: ${CLUSTER_NAME}
+kind: Config
+preferences: {}
+users: []
