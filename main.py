@@ -13,6 +13,8 @@ SERVICE_PLACEMENT = {
 }
 
 def start_deploy(service_name):
+    if not USER_PARAMS.get("CONTROLLER_IP", None):
+        USER_PARAMS["CONTROLLER_IP"] = CurrentHostParams.get("CURRENT_IPADDR")
     USER_PARAMS.update(CurrentHostParams)
     svc_endpoint_entry = "{0}_deploy.entry".format(service_name).replace("-", "_")
     entry = importlib.import_module(svc_endpoint_entry)
