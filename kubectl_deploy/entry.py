@@ -74,12 +74,12 @@ class EntryPoint(object):
 
     def finish(self):
         # Create context directory
-        status, result = commands.getstatusoutput("mkdir ~/.kube")
+        status, result = commands.getstatusoutput("mkdir -p {0}/.kube".format(os.path.expanduser("~")))
         if status:
             raise Exception, result
 
         fill_service_configure("{0}/config.temp".format(self.service_temp_path),
-                               "~/.kube/config",
+                               "{0}/.kube/config".format(os.path.expanduser("~")),
                                self.user_params)
         if status:
             raise Exception, result

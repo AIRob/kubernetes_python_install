@@ -15,7 +15,7 @@ ImagesInfo = [
         "name": "registry.cn-hangzhou.aliyuncs.com/google-containers/heapster-influxdb-amd64",
         "version": "v1.1.1",
         "path": "/tmp/docker_deploy/images/heapster-influxdb-amd64-v1.1.1.tar",
-        "id": "18777cd05bb9"
+        "id": "d3fccbedd180"
     },
     {
         "name": "calico/cni",
