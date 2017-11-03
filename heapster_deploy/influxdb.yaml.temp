@@ -33,7 +33,7 @@ metadata:
   name: monitoring-influxdb
   namespace: kube-system
 spec:
-  clusterIP: ${HEAPSTER_SVC_IP}
+  #clusterIP: ${HEAPSTER_SVC_IP}
   ports:
   - port: 8086
     targetPort: 8086

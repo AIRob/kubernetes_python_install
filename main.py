@@ -18,7 +18,7 @@ def start_deploy(service_name):
         USER_PARAMS["CONTROLLER_IP"] = CurrentHostParams.get("CURRENT_IPADDR")
 
     USER_PARAMS["CLUSTER_DNS_IP"] = get_ip_from_cidr(USER_PARAMS["SERVICE_CLUSTER_CIDR"], 2)
-    USER_PARAMS["HEAPSTER_SVC_IP"] = get_ip_from_cidr(USER_PARAMS["SERVICE_CLUSTER_CIDR"], 3)
+    #USER_PARAMS["HEAPSTER_SVC_IP"] = get_ip_from_cidr(USER_PARAMS["SERVICE_CLUSTER_CIDR"], 3)
     USER_PARAMS.update(CurrentHostParams)
     svc_endpoint_entry = "{0}_deploy.entry".format(service_name).replace("-", "_")
     entry = importlib.import_module(svc_endpoint_entry)
