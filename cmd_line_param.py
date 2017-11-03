@@ -9,7 +9,7 @@ PARSER.add_argument("-r",
                     "--role",
                     type=str,
                     help="the role is to deploy ControllerNode or MinionNode",
-                    choices=["master", "node"],
+                    choices=["master", "node", "all"],
                     default="master")
 
 PARSER.add_argument("-f",

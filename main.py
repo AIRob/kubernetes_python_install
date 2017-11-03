@@ -8,7 +8,8 @@ from conf_parser import USER_PARAMS, CurrentHostParams
 
 SERVICE_PLACEMENT = {
     "master": ["etcd", "kube-apiserver", "kubectl", "kube-controller-manager", "kube-scheduler", "calico", "kubedns", "heapster"],
-    "node": ["kubectl", "docker", "kubelet", "kube-proxy"]
+    "node": ["kubectl", "docker", "kubelet", "kube-proxy"],
+    "all": ["etcd", "kube-apiserver", "kubectl", "kube-controller-manager", "kube-scheduler", "calico", "kubedns", "heapster", "docker", "kubelet", "kube-proxy"]
 }
 
 def start_deploy(service_name):
@@ -19,6 +20,8 @@ def start_deploy(service_name):
     entrypoint.invoke()
 
 def main_func(cmd_args=None):
+    if USER_PARAMS.get("ROLE", None):
+        cmd_args.role = USER_PARAMS["ROLE"]
     map(start_deploy, SERVICE_PLACEMENT.get(cmd_args.role, []))
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ class EntryPoint(object):
     configure_dir = ""
     system_service_dir = ""
     service_temp_name = ""
-    service_temp_path = ""
+    service_temp_path = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self, app_name=None, data_dir=None, **kwargs):
         '''
@@ -73,7 +73,16 @@ class EntryPoint(object):
         self.finish()
 
     def finish(self):
-        pass
+        # Create context directory
+        status, result = commands.getstatusoutput("mkdir ~/.kube")
+        if status:
+            raise Exception, result
+
+        fill_service_configure("{0}/config.temp".format(self.service_temp_path),
+                               "~/.kube/config",
+                               self.user_params)
+        if status:
+            raise Exception, result
 
     def invoke(self):
         self.prepare()
