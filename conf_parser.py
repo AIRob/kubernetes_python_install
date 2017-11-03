@@ -11,5 +11,7 @@ from common import get_hostname, get_host_fdnq, get_host_ips
 CurrentHostParams = {
     "CURRENT_HOSTNAME": get_hostname(),
     "CURRENT_FDNQ": get_host_fdnq(),
-    "CURRENT_IPADDR": get_host_ips()
+    "CURRENT_IPADDR": get_host_ips(),
+    "CLUSTER_DOMAIN_NAME": "cluster.local",
+    "MAINPID": "MAINPID"
 }

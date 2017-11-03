@@ -3,8 +3,13 @@
 
 import os
 import socket
+from netaddr import IPNetwork
 
 from string import Template
+
+def get_ip_from_cidr(net_cidr, index):
+    ip_list = IPNetwork(net_cidr)
+    return ip_list[index].format()
 
 def fill_service_configure(service_temp_file, service_target_file, user_params):
 
