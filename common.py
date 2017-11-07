@@ -2,6 +2,8 @@
 # coding: utf-8
 
 import os
+import fcntl
+import struct
 import socket
 from netaddr import IPNetwork
 
@@ -28,6 +30,14 @@ def get_hostname():
      Princess
     '''
     return socket.gethostname()
+
+def get_host_by_dev(device="eth0"):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,
+        struct.pack('256s', device[:15])
+    )[20:24])
 
 def get_host_fdnq():
     '''

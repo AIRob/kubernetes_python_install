@@ -36,6 +36,11 @@ class EntryPoint(object):
         return os.path.join(self.system_service_dir, "{}.service".format(self.app_name))
 
     def prepare(self):
+        try:
+            commands.getstatusoutput("kubectl create -f {0}/kube-system.yaml".format(self.service_temp_path))
+        except Exception:
+            pass
+
         self.begin()
 
     def begin(self):
